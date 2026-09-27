@@ -1,0 +1,13 @@
+node_modules
+dist
+.env
+.env.*
+!.env.example
+.DS_Store
+*.log
+
+# JetBrains IDE (IntelliJ IDEA, WebStorm и др.)
+.idea/
+*.iml
+*.iws
+*.ipr
