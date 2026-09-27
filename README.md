@@ -1,4 +1,5 @@
 # GREEN-API:MAX chat
+Тестовое задание: https://drive.google.com/file/d/1Ut39kkIs0QK-swnCsIPJc6pNqVIVGOD2/view
 ![Скриншот интерфейса чата](img.png)
 
 Тестовое задание: минимальный web-интерфейс чата для отправки и получения **текстовых сообщений в MAX** через GREEN-API.

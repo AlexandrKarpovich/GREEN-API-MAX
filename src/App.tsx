@@ -303,193 +303,193 @@ export default function App() {
   }
 
   return (
-    <div className="app-shell">
-      <aside className="sidebar">
-        <div className="sidebar-top">
-          <div className="brand-row">
-            <div className="max-logo">M</div>
-            <div>
-              <div className="brand-title">MAX</div>
-              <div className="brand-subtitle">GREEN-API Chat</div>
-            </div>
-            <button className="icon-button ghost" title="Настройки" onClick={() => { setDraftCredentials(credentials); setSettingsOpen(true) }}>{icon.settings}</button>
-          </div>
-          <div className="search-box">
-            <span>{icon.search}</span>
-            <input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Поиск" />
-          </div>
-        </div>
-
-        <div className="chat-list-header">
-          <span>Чаты</span>
-          <button className="round-add" title="Новый чат" onClick={() => setNewChatOpen(true)}>{icon.plus}</button>
-        </div>
-
-        <div className="chat-list">
-          {filteredChats.length === 0 ? (
-            <div className="empty-list">
-              <div className="empty-icon">💬</div>
-              <strong>Нет чатов</strong>
-              <span>Нажмите «+», чтобы начать диалог.</span>
-            </div>
-          ) : filteredChats.map((chat) => {
-            const last = chat.messages.at(-1)
-            return (
-              <button key={chat.id} className={`chat-preview ${chat.id === activeChatId ? 'active' : ''}`} onClick={() => setActiveChatId(chat.id)}>
-                <div className="avatar">{chat.name.slice(0, 1).toUpperCase()}</div>
-                <div className="chat-preview-content">
-                  <div className="chat-preview-line">
-                    <strong>{chat.name}</strong>
-                    {last && <time>{formatTime(last.timestamp)}</time>}
-                  </div>
-                  <div className="chat-preview-line muted">
-                    <span className="truncate">{last?.text || chat.phone}</span>
-                    {last?.direction === 'outgoing' && <span className="preview-status">{last.status === 'error' ? '!' : icon.doubleCheck}</span>}
-                  </div>
-                </div>
-              </button>
-            )
-          })}
-        </div>
-
-        <div className="sidebar-footer">
-          <div className={`status-dot ${state === 'authorized' ? 'online' : ''}`} />
-          <span>{state === 'authorized' ? 'MAX подключён' : state}</span>
-          <button className="text-button" onClick={() => void connect()} disabled={busy}>Обновить</button>
-        </div>
-      </aside>
-
-      <main className="chat-area">
-        {activeChat ? (
-          <>
-            <header className="chat-header">
-              <div className="avatar large">{activeChat.name.slice(0, 1).toUpperCase()}</div>
-              <div className="chat-header-info">
-                <h1>{activeChat.name}</h1>
-                <span>{activeChat.phone || `chatId: ${activeChat.id}`}</span>
+      <div className="app-shell">
+        <aside className="sidebar">
+          <div className="sidebar-top">
+            <div className="brand-row">
+              <div className="max-logo">M</div>
+              <div>
+                <div className="brand-title">MAX</div>
+                <div className="brand-subtitle">GREEN-API Chat</div>
               </div>
-              <div className="chat-header-actions">
-                <button className="icon-button" title="Поиск">{icon.search}</button>
-                <button className="icon-button" title="Дополнительно">{icon.more}</button>
-              </div>
-            </header>
+              <button className="icon-button ghost" title="Настройки" onClick={() => { setDraftCredentials(credentials); setSettingsOpen(true) }}>{icon.settings}</button>
+            </div>
+            <div className="search-box">
+              <span>{icon.search}</span>
+              <input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Поиск" />
+            </div>
+          </div>
 
-            <section className="messages" aria-label="История сообщений">
-              {activeChat.messages.length === 0 ? (
-                <div className="conversation-empty">
-                  <div className="conversation-badge">M</div>
-                  <h2>Начните общение</h2>
-                  <p>Отправьте первое текстовое сообщение в MAX.</p>
+          <div className="chat-list-header">
+            <span>Чаты</span>
+            <button className="round-add" title="Новый чат" onClick={() => setNewChatOpen(true)}>{icon.plus}</button>
+          </div>
+
+          <div className="chat-list">
+            {filteredChats.length === 0 ? (
+                <div className="empty-list">
+                  <div className="empty-icon">💬</div>
+                  <strong>Нет чатов</strong>
+                  <span>Нажмите «+», чтобы начать диалог.</span>
                 </div>
-              ) : (
-                <div className="message-stack">
-                  {activeChat.messages.map((message, index) => {
-                    const previous = activeChat.messages[index - 1]
-                    const showDate = !previous || formatDate(previous.timestamp) !== formatDate(message.timestamp)
-                    return (
-                      <div key={message.id}>
-                        {showDate && <div className="date-divider"><span>{formatDate(message.timestamp)}</span></div>}
-                        <div className={`message-row ${message.direction}`}>
-                          <div className={`bubble ${message.status === 'error' ? 'error' : ''}`}>
-                            <span className="bubble-text">{message.text}</span>
-                            <span className="bubble-meta">
-                              {formatTime(message.timestamp)}
-                              {message.direction === 'outgoing' && (
-                                <span className={`message-check ${message.status}`}>{message.status === 'sending' ? '…' : message.status === 'error' ? '!' : icon.doubleCheck}</span>
-                              )}
-                            </span>
-                          </div>
-                        </div>
+            ) : filteredChats.map((chat) => {
+              const last = chat.messages.at(-1)
+              return (
+                  <button key={chat.id} className={`chat-preview ${chat.id === activeChatId ? 'active' : ''}`} onClick={() => setActiveChatId(chat.id)}>
+                    <div className="avatar">{chat.name.slice(0, 1).toUpperCase()}</div>
+                    <div className="chat-preview-content">
+                      <div className="chat-preview-line">
+                        <strong>{chat.name}</strong>
+                        {last && <time>{formatTime(last.timestamp)}</time>}
                       </div>
-                    )
-                  })}
+                      <div className="chat-preview-line muted">
+                        <span className="truncate">{last?.text || chat.phone}</span>
+                        {last?.direction === 'outgoing' && <span className="preview-status">{last.status === 'error' ? '!' : icon.doubleCheck}</span>}
+                      </div>
+                    </div>
+                  </button>
+              )
+            })}
+          </div>
+
+          <div className="sidebar-footer">
+            <div className={`status-dot ${state === 'authorized' ? 'online' : ''}`} />
+            <span>{state === 'authorized' ? 'MAX подключён' : state}</span>
+            <button className="text-button" onClick={() => void connect()} disabled={busy}>Обновить</button>
+          </div>
+        </aside>
+
+        <main className="chat-area">
+          {activeChat ? (
+              <>
+                <header className="chat-header">
+                  <div className="avatar large">{activeChat.name.slice(0, 1).toUpperCase()}</div>
+                  <div className="chat-header-info">
+                    <h1>{activeChat.name}</h1>
+                    <span>{activeChat.phone || `chatId: ${activeChat.id}`}</span>
+                  </div>
+                  <div className="chat-header-actions">
+                    <button className="icon-button" title="Поиск">{icon.search}</button>
+                    <button className="icon-button" title="Дополнительно">{icon.more}</button>
+                  </div>
+                </header>
+
+                <section className="messages" aria-label="История сообщений">
+                  {activeChat.messages.length === 0 ? (
+                      <div className="conversation-empty">
+                        <div className="conversation-badge">M</div>
+                        <h2>Начните общение</h2>
+                        <p>Отправьте первое текстовое сообщение в MAX.</p>
+                      </div>
+                  ) : (
+                      <div className="message-stack">
+                        {activeChat.messages.map((message, index) => {
+                          const previous = activeChat.messages[index - 1]
+                          const showDate = !previous || formatDate(previous.timestamp) !== formatDate(message.timestamp)
+                          return (
+                              <div key={message.id}>
+                                {showDate && <div className="date-divider"><span>{formatDate(message.timestamp)}</span></div>}
+                                <div className={`message-row ${message.direction}`}>
+                                  <div className={`bubble ${message.status === 'error' ? 'error' : ''}`}>
+                                    <span className="bubble-text">{message.text}</span>
+                                    <span className="bubble-meta">
+                              {formatTime(message.timestamp)}
+                                      {message.direction === 'outgoing' && (
+                                          <span className={`message-check ${message.status}`}>{message.status === 'sending' ? '…' : message.status === 'error' ? '!' : icon.doubleCheck}</span>
+                                      )}
+                            </span>
+                                  </div>
+                                </div>
+                              </div>
+                          )
+                        })}
+                      </div>
+                  )}
+                </section>
+
+                <footer className="composer-wrap">
+                  <div className="composer">
+                    <button className="composer-icon" title="Эмодзи">{icon.smile}</button>
+                    <textarea
+                        value={draft}
+                        onChange={(event) => setDraft(event.target.value.slice(0, MAX_MESSAGE_LENGTH))}
+                        onKeyDown={onComposerKeyDown}
+                        placeholder="Сообщение"
+                        rows={1}
+                    />
+                    <button className="composer-icon" title="Вложения (только текст в рамках задания)">{icon.attach}</button>
+                    <button className="send-button" disabled={!draft.trim() || busy || state !== 'authorized'} onClick={() => void send()} title="Отправить">
+                      {icon.send}
+                    </button>
+                  </div>
+                  <div className="composer-hint">
+                    <span>Enter — отправить · Shift+Enter — новая строка</span>
+                    <span>{draft.length}/{MAX_MESSAGE_LENGTH}</span>
+                  </div>
+                </footer>
+              </>
+          ) : (
+              <div className="welcome">
+                <div className="welcome-logo">M</div>
+                <h1>MAX</h1>
+                <p>Минимальный интерфейс для отправки и получения текстовых сообщений через GREEN-API.</p>
+                <div className="welcome-actions">
+                  <button className="primary-button" onClick={() => setNewChatOpen(true)}>Создать чат</button>
+                  <button className="secondary-button" onClick={() => { setDraftCredentials(credentials); setSettingsOpen(true) }}>Настроить API</button>
                 </div>
-              )}
-            </section>
+                <small>Статус: {state}{accountPhone ? ` · ${accountPhone}` : ''}</small>
+              </div>
+          )}
+        </main>
 
-            <footer className="composer-wrap">
-              <div className="composer">
-                <button className="composer-icon" title="Эмодзи">{icon.smile}</button>
-                <textarea
-                  value={draft}
-                  onChange={(event) => setDraft(event.target.value.slice(0, MAX_MESSAGE_LENGTH))}
-                  onKeyDown={onComposerKeyDown}
-                  placeholder="Сообщение"
-                  rows={1}
-                />
-                <button className="composer-icon" title="Вложения (только текст в рамках задания)">{icon.attach}</button>
-                <button className="send-button" disabled={!draft.trim() || busy || state !== 'authorized'} onClick={() => void send()} title="Отправить">
-                  {icon.send}
-                </button>
-              </div>
-              <div className="composer-hint">
-                <span>Enter — отправить · Shift+Enter — новая строка</span>
-                <span>{draft.length}/{MAX_MESSAGE_LENGTH}</span>
-              </div>
-            </footer>
-          </>
-        ) : (
-          <div className="welcome">
-            <div className="welcome-logo">M</div>
-            <h1>MAX</h1>
-            <p>Минимальный интерфейс для отправки и получения текстовых сообщений через GREEN-API.</p>
-            <div className="welcome-actions">
-              <button className="primary-button" onClick={() => setNewChatOpen(true)}>Создать чат</button>
-              <button className="secondary-button" onClick={() => { setDraftCredentials(credentials); setSettingsOpen(true) }}>Настроить API</button>
+        {(error || notice) && (
+            <div className={`toast ${error ? 'toast-error' : ''}`}>
+              <span>{error || notice}</span>
+              <button onClick={() => { setError(''); setNotice('') }}>×</button>
             </div>
-            <small>Статус: {state}{accountPhone ? ` · ${accountPhone}` : ''}</small>
-          </div>
         )}
-      </main>
 
-      {(error || notice) && (
-        <div className={`toast ${error ? 'toast-error' : ''}`}>
-          <span>{error || notice}</span>
-          <button onClick={() => { setError(''); setNotice('') }}>×</button>
-        </div>
-      )}
-
-      {settingsOpen && (
-        <div className="modal-backdrop" onMouseDown={(event) => { if (event.target === event.currentTarget) setSettingsOpen(false) }}>
-          <div className="modal">
-            <div className="modal-header">
-              <div>
-                <h2>Подключение GREEN-API</h2>
-                <p>Укажите данные инстанса MAX из личного кабинета GREEN-API.</p>
+        {settingsOpen && (
+            <div className="modal-backdrop" onMouseDown={(event) => { if (event.target === event.currentTarget) setSettingsOpen(false) }}>
+              <div className="modal">
+                <div className="modal-header">
+                  <div>
+                    <h2>Подключение GREEN-API</h2>
+                    <p>Укажите данные инстанса MAX из личного кабинета GREEN-API.</p>
+                  </div>
+                  <button className="icon-button" onClick={() => setSettingsOpen(false)}>×</button>
+                </div>
+                <label>API URL<input value={draftCredentials.apiUrl} onChange={(e) => setDraftCredentials({ ...draftCredentials, apiUrl: e.target.value })} placeholder="https://api.green-api.com" /></label>
+                <label>ID Instance<input value={draftCredentials.idInstance} onChange={(e) => setDraftCredentials({ ...draftCredentials, idInstance: e.target.value })} placeholder="110100001" /></label>
+                <label>API Token Instance<input type="password" value={draftCredentials.apiTokenInstance} onChange={(e) => setDraftCredentials({ ...draftCredentials, apiTokenInstance: e.target.value })} placeholder="••••••••••••••••" /></label>
+                <div className="security-note">Данные сохраняются только в localStorage этого браузера и используются для запросов к GREEN-API. Для production-приложения токен лучше хранить на backend.</div>
+                <div className="modal-actions">
+                  <button className="secondary-button" onClick={() => setSettingsOpen(false)}>Отмена</button>
+                  <button className="primary-button" onClick={saveSettings} disabled={!draftCredentials.idInstance || !draftCredentials.apiTokenInstance}>Сохранить и подключиться</button>
+                </div>
               </div>
-              <button className="icon-button" onClick={() => setSettingsOpen(false)}>×</button>
             </div>
-            <label>API URL<input value={draftCredentials.apiUrl} onChange={(e) => setDraftCredentials({ ...draftCredentials, apiUrl: e.target.value })} placeholder="https://api.green-api.com" /></label>
-            <label>ID Instance<input value={draftCredentials.idInstance} onChange={(e) => setDraftCredentials({ ...draftCredentials, idInstance: e.target.value })} placeholder="110100001" /></label>
-            <label>API Token Instance<input type="password" value={draftCredentials.apiTokenInstance} onChange={(e) => setDraftCredentials({ ...draftCredentials, apiTokenInstance: e.target.value })} placeholder="••••••••••••••••" /></label>
-            <div className="security-note">Данные сохраняются только в localStorage этого браузера и используются для запросов к GREEN-API. Для production-приложения токен лучше хранить на backend.</div>
-            <div className="modal-actions">
-              <button className="secondary-button" onClick={() => setSettingsOpen(false)}>Отмена</button>
-              <button className="primary-button" onClick={saveSettings} disabled={!draftCredentials.idInstance || !draftCredentials.apiTokenInstance}>Сохранить и подключиться</button>
-            </div>
-          </div>
-        </div>
-      )}
+        )}
 
-      {newChatOpen && (
-        <div className="modal-backdrop" onMouseDown={(event) => { if (event.target === event.currentTarget) setNewChatOpen(false) }}>
-          <div className="modal compact">
-            <div className="modal-header">
-              <div>
-                <h2>Новый чат</h2>
-                <p>Введите номер получателя в международном формате.</p>
+        {newChatOpen && (
+            <div className="modal-backdrop" onMouseDown={(event) => { if (event.target === event.currentTarget) setNewChatOpen(false) }}>
+              <div className="modal compact">
+                <div className="modal-header">
+                  <div>
+                    <h2>Новый чат</h2>
+                    <p>Введите номер получателя в международном формате.</p>
+                  </div>
+                  <button className="icon-button" onClick={() => setNewChatOpen(false)}>×</button>
+                </div>
+                <label>Номер телефона<input autoFocus value={newPhone} onChange={(e) => setNewPhone(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') void createChat() }} placeholder="79991234567" /></label>
+                <div className="modal-caption">GREEN-API сначала выполнит CheckAccount и получит chatId. Это позволяет корректно принимать ответы в этом диалоге.</div>
+                <div className="modal-actions">
+                  <button className="secondary-button" onClick={() => setNewChatOpen(false)}>Отмена</button>
+                  <button className="primary-button" onClick={() => void createChat()} disabled={busy || state !== 'authorized'}>Создать</button>
+                </div>
               </div>
-              <button className="icon-button" onClick={() => setNewChatOpen(false)}>×</button>
             </div>
-            <label>Номер телефона<input autoFocus value={newPhone} onChange={(e) => setNewPhone(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') void createChat() }} placeholder="79991234567" /></label>
-            <div className="modal-caption">GREEN-API сначала выполнит CheckAccount и получит chatId. Это позволяет корректно принимать ответы в этом диалоге.</div>
-            <div className="modal-actions">
-              <button className="secondary-button" onClick={() => setNewChatOpen(false)}>Отмена</button>
-              <button className="primary-button" onClick={() => void createChat()} disabled={busy || state !== 'authorized'}>Создать</button>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
   )
 }
